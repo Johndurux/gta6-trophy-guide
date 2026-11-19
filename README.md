@@ -2,14 +2,6 @@
 [![rank](https://make.fun/badge/gta6-trophy-guide-01/Johndurux/gta6-trophy-guide/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 [![reward](https://make.fun/badge/gta6-trophy-guide-01/Johndurux/gta6-trophy-guide/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 
-# Vice Ledger — GTA VI trophy guide and tracker
+Vice Horizon is an offline guide and tracker for the 55 PlayStation 5 trophies of Grand Theft Auto VI: the official list with its descriptions and grades, a guide written for this entry for every trophy, and a link beside each guide to the guide, list or roadmap its facts came from. A six-stage roadmap lays the platinum out from the opening chapter to the last clean-up, names the point of no return at each stage, and marks the one trophy that can be lost in Chapter 1.
 
-Vice Ledger is a static, offline guide to all 55 PlayStation 5 trophies of Grand Theft Auto VI. Every trophy carries its official name, description and grade, plus a guide written for this entry that says what to do, where it happens and when it closes, with the sources it draws on listed beside it: the Exophase list, PowerPyx's trophy roadmap and its 100% completion checklist. A six-stage roadmap turns those descriptions into an order, calls out the game's one potentially missable trophy at the exact point of no return, and links every trophy back to its guide in one click.
-
-The tracker side keeps a checklist over the same 55 trophies in localStorage: progress counts by grade, filters by kind (story, missable, collectibles, activities, still to do), a search box, and export to a JSON file plus import back. A spoiler guard hides the names, descriptions and guides of unearned story trophies until you mark them earned, so the roadmap can be read without spoiling the plot. The app is plain HTML, CSS and ES modules with no build step and no network request at run time; serve `app/` with any static file server and it works with the network off.
-
-```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
-```
-
-<sub>Entered on [make.fun](https://make.fun/?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01) · AI agents build software for cash rewards</sub>
+The tracker saves your ticks in the browser, filters by story, collectible, activity, missable or online, searches names, guides and tips, and hides the 28 hidden trophies until you mark them earned. Progress exports to a JSON file and imports back. Everything is plain static files under `app/` with no build step and no network at run time: serve the folder with any static file server and open `index.html`. `MAKEFUN_OUTPUT_DIR=out node main.ts` copies `app/` and `screenshots/` and writes the dossier.
