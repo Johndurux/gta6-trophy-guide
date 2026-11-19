@@ -3,23 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
+<title>Vice Ledger — GTA VI Trophy Guide &amp; Tracker</title>
+<meta name="description" content="An offline guide, roadmap and tracker for the 55 PlayStation 5 trophies of Grand Theft Auto VI: a cited guide for every trophy, the platinum roadmap, missable flags and saved progress.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+<div class="sunset-glow" aria-hidden="true"></div>
+
+<header class="masthead">
+  <div class="brand">
+    <div class="brand-mark">VI</div>
+    <div class="brand-text">
+      <h1>Vice Ledger</h1>
+      <p class="tagline">GTA&nbsp;VI trophy guide &amp; tracker · all 55 PS5 trophies · works offline</p>
+    </div>
+  </div>
+  <div class="progress-card">
+    <div class="progress-numbers">
+      <strong id="earned-count">0</strong><span id="total-count"> / 55</span><span id="earned-percent" class="percent">0%</span>
+    </div>
+    <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+    <ul id="progress-legend" class="progress-legend"></ul>
+  </div>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
-<script type="module" src="app.js"></script>
+
+<section class="controls" aria-label="controls">
+  <label class="search-box">
+    <span class="control-label">Search</span>
+    <input id="search-input" type="search" placeholder="trophy, place, activity…" autocomplete="off">
+  </label>
+  <div id="filter-chips" class="chips" role="group" aria-label="filter by kind"></div>
+  <div class="spoiler-box" title="Hides the names and descriptions of story trophies until you mark them earned">
+    <label class="switch">
+      <input id="spoiler-toggle" type="checkbox">
+      <span class="switch-track" aria-hidden="true"><span class="switch-knob"></span></span>
+    </label>
+    <div class="spoiler-text">
+      <strong>Spoiler guard</strong>
+      <span class="hint">hides story trophies until earned</span>
+    </div>
+  </div>
+  <div class="transfer-box">
+    <button id="export-button" type="button">Export progress</button>
+    <label class="import-ctl">Import<input id="import-input" type="file" accept="application/json,application/octet-stream"></label>
+  </div>
+</section>
+
+<p id="spoiler-banner" class="spoiler-banner" hidden></p>
+
+<nav class="tabs" role="tablist" aria-label="views">
+  <button id="tab-checklist" class="tab is-active" role="tab" aria-selected="true" data-view="checklist">Checklist</button>
+  <button id="tab-roadmap" class="tab" role="tab" aria-selected="false" data-view="roadmap">Roadmap to platinum</button>
+</nav>
+
+<main>
+  <section id="view-checklist" class="view" data-view="checklist">
+    <div class="list-column">
+      <div class="list-heading">
+        <span id="result-count" class="result-count"></span>
+        <span id="list-summary" class="list-summary"></span>
+      </div>
+      <ol id="trophy-list" class="trophy-list"></ol>
+      <p id="empty-note" class="empty-note" hidden>No trophies match this filter and search.</p>
+    </div>
+    <aside id="detail-panel" class="detail-panel" aria-live="polite"></aside>
+  </section>
+
+  <section id="view-roadmap" class="view" data-view="roadmap" hidden>
+    <div id="roadmap-root"></div>
+  </section>
+</main>
+
+<footer class="footnote">
+  <p>Official trophy names, descriptions and grades as PlayStation publishes them. Each guide is original writing for this entry and cites its sources, which open only when you click them. The page loads nothing from the network.</p>
+</footer>
+
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
