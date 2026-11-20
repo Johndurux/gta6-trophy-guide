@@ -30,6 +30,7 @@ const nodes = {
   hideEarned: $('#hide-earned'),
   spoiler: $('#spoiler-toggle'),
   spoilerState: $('#spoiler-state'),
+  guardPill: $('#guard-pill'),
   count: $('#progress-count'),
   percentNode: $('#progress-percent'),
   fill: $('#progress-fill'),
@@ -69,6 +70,9 @@ function paintProgress() {
 
   nodes.spoiler.setAttribute('aria-pressed', String(store.spoilerSealed));
   nodes.spoilerState.textContent = store.spoilerSealed ? 'sealed' : 'open';
+  const sealedCount = guide.trophies.filter((trophy) => store.isSealed(trophy)).length;
+  nodes.guardPill.textContent = store.spoilerSealed ? `Spoiler guard · sealed (${sealedCount})` : 'Spoiler guard · open';
+  nodes.guardPill.classList.toggle('is-open', !store.spoilerSealed);
   nodes.search.value = filter.query;
   nodes.grade.value = filter.grade;
   nodes.hideEarned.setAttribute('aria-pressed', String(filter.hideEarned));
@@ -134,6 +138,7 @@ function paintView() {
     onToggle: (trophy, on) => setEarned(trophy, on),
     onSpoilerOff: () => setSpoiler(false),
     onStep: (delta) => step(delta),
+    onNextUnearned: () => nextUnearned(),
   });
 }
 
@@ -149,12 +154,14 @@ function setSpoiler(sealed) {
   paint();
 }
 
+let lockScroll = false;
+
 function open(trophy, view = ui.view) {
   ui.openId = trophy.id;
   ui.view = view;
   paint();
   if (nodes.detail) nodes.detail.scrollTop = 0;
-  revealRow(trophy.id);
+  if (!lockScroll) revealRow(trophy.id);
 }
 
 function revealRow(id) {
@@ -173,6 +180,18 @@ function step(delta) {
   const index = guide.trophies.findIndex((trophy) => trophy.id === ui.openId);
   const next = guide.trophies[(index + delta + guide.total) % guide.total];
   open(next);
+}
+
+/** The next trophy still missing, from wherever the reader is — the play-along route. */
+function nextUnearned() {
+  const index = guide.trophies.findIndex((trophy) => trophy.id === ui.openId);
+  for (let k = 1; k <= guide.total; k++) {
+    const trophy = guide.trophies[(index + k) % guide.total];
+    if (!store.isEarned(trophy.id)) {
+      open(trophy);
+      return;
+    }
+  }
 }
 
 function setView(view) {
@@ -255,6 +274,10 @@ function readQuery() {
 
   filter.query = params.get('q') ?? '';
   filter.hideEarned = params.get('left') === '1';
+
+  // ?scroll=top leaves both panes where they start, so a capture can show the list's own
+  // head while the guide pane is showing a trophy from further down.
+  if (params.get('scroll') === 'top') lockScroll = true;
 
   const openToken = params.get('open');
   if (openToken) {
