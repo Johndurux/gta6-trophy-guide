@@ -19,7 +19,6 @@
   <div class="brand">
     <p class="brand-kicker">Leonida · PlayStation 5 · 55 trophies</p>
     <h1 class="brand-title">VICE<span>HORIZON</span></h1>
-    <p class="brand-sub">Trophy atlas &amp; tracker — every guide cited</p>
   </div>
 
   <section class="progress" aria-label="Platinum progress">
@@ -37,43 +36,43 @@
       <span class="switch-track"><span class="switch-dot"></span></span>
       <span class="switch-label">Spoilers <b id="spoiler-state">sealed</b></span>
     </button>
-    <button id="export-progress" class="button button-primary" type="button">Export JSON</button>
+    <button id="export-progress" class="button button-primary" type="button">Export progress</button>
     <label class="button button-ghost" for="import-progress">Import
       <input id="import-progress" type="file" accept="application/json,.json">
     </label>
   </div>
 </header>
 
-<nav class="views" aria-label="Views">
-  <button class="view-tab is-active" type="button" data-view="checklist">Checklist</button>
-  <button class="view-tab" type="button" data-view="roadmap">Roadmap</button>
-  <button class="view-tab" type="button" data-view="missables">Missables</button>
-  <p class="views-note" id="views-note">Six stages, in the order a platinum run takes them</p>
-</nav>
+<div class="toolbar">
+  <nav class="views" aria-label="Views">
+    <button class="view-tab is-active" type="button" data-view="checklist">Checklist</button>
+    <button class="view-tab" type="button" data-view="roadmap">Roadmap</button>
+    <button class="view-tab" type="button" data-view="missables">Missables</button>
+  </nav>
 
-<section class="filters" id="filters" aria-label="Filters">
-  <label class="search">
-    <span class="search-icon" aria-hidden="true">⌕</span>
-    <input id="search" type="search" placeholder="Search a trophy, a place, a step…" autocomplete="off" spellcheck="false">
-  </label>
-  <div class="chips" id="kind-chips" role="group" aria-label="Filter by kind"></div>
-  <label class="select">
-    <span>Grade</span>
-    <select id="grade-filter">
-      <option value="all">All</option>
-      <option value="platinum">Platinum</option>
-      <option value="gold">Gold</option>
-      <option value="silver">Silver</option>
-      <option value="bronze">Bronze</option>
-    </select>
-  </label>
-  <button id="hide-earned" class="button button-ghost" type="button" aria-pressed="false">Hide earned</button>
-</section>
+  <section class="filters" id="filters" aria-label="Filter by kind">
+    <div class="chips" id="kind-chips" role="group" aria-label="Filter by kind"></div>
+    <label class="search">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input id="search" type="search" placeholder="Search…" autocomplete="off" spellcheck="false">
+    </label>
+  </section>
+</div>
 
 <main class="workspace" id="workspace">
   <section class="list-pane" id="list-pane" aria-label="Trophy checklist">
     <div class="list-head">
       <span id="list-title">All trophies</span>
+      <label class="select">
+        <select id="grade-filter" title="Filter by grade">
+          <option value="all">All grades</option>
+          <option value="platinum">Platinum</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+      </label>
+      <button id="hide-earned" class="list-toggle" type="button" aria-pressed="false">Hide earned</button>
       <span id="list-count">55 shown</span>
     </div>
     <div class="trophy-list" id="trophy-list" role="list"></div>

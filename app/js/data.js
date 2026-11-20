@@ -3,15 +3,17 @@
 
 const TROPHIES_URL = 'data/trophies.json';
 
-// The six roadmap stages, in the order a platinum run takes them. Each note says what
-// changes at that point and what (if anything) has to happen before it closes.
+// The six roadmap stages, in the order a platinum run takes them. Each names the point
+// of no return for that stretch: what can close for good (or nothing), so a reader can
+// see the order and the walls to the run. From the official descriptions and the guides.
 export const STAGES = [
   {
     id: 1,
     title: 'Chapter 1 — the one door that closes',
     window: '0–10 h',
     missable: true,
-    warning: 'The balcony meditation is the only thing in the game that can close for good.',
+    pointOfNoReturn:
+      'The Chapter 1 finale. The balcony meditation behind Positive Mental Attitude is gone the moment Chapter 1 ends, so take it before the chapter’s last mission.',
     note: 'Take every optional offer the chapter makes before it ends.',
   },
   {
@@ -19,34 +21,41 @@ export const STAGES = [
     title: 'Chapters 2–3 — the state opens up',
     window: '10–60 h',
     missable: false,
-    note: 'Coffee Break opens partner free roam: robberies, garages, Scooter Bros and laundering.',
+    pointOfNoReturn: 'None. Robberies, garages, Scooter Bros and the rest stay open after the credits.',
+    note: 'Coffee Break opens partner free roam and strands.',
   },
   {
     id: 3,
     title: 'Chapters 4–5 — close the story',
     window: '60–80 h',
     missable: false,
-    note: "Story trophies arrive on their own; keep a manual save before Chapter 4's last mission.",
+    pointOfNoReturn:
+      'None in the trophies, but keep a manual save before Chapter 4’s last mission in case a story trophy fails to pop.',
+    note: 'Story trophies arrive on their own as each chapter closes.',
   },
   {
     id: 4,
     title: '100% checklist — the long middle',
     window: '80–190 h',
     missable: false,
-    note: 'The 100% list opens after the credits. Robberies, ranges, drone races and Target Decks count in full.',
+    pointOfNoReturn: 'None. The 100% list has no closing window; work done before the credits already counts.',
+    note: 'Robberies, ranges, drone races and Target Decks count in full; a share of the rest does.',
   },
   {
     id: 5,
     title: 'Side strands, one-offs, clean-up',
     window: '190–200 h',
     missable: false,
-    note: 'Every strand and hidden one-off stays open: UFO, showroom smash, bowling robbery.',
+    pointOfNoReturn:
+      'None — but the timing changes the order: the UFO only after 2 AM alone, the bowling robbery’s slow respawn, the showroom Banshee after the Key Cloner.',
+    note: 'Every strand and hidden one-off stays open to the end.',
   },
   {
     id: 6,
     title: 'Platinum',
     window: 'the end',
     missable: false,
+    pointOfNoReturn: 'None. The platinum lands by itself with the 55th trophy.',
     note: 'Arrives with the 55th trophy. Nothing extra to do.',
   },
 ];

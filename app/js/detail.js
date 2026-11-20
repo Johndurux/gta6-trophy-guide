@@ -42,7 +42,7 @@ function openHead(trophy, store, onToggle) {
     el('span', { class: `chip chip-grade grade-${trophy.grade}`, text: trophy.grade }),
     el('span', { class: `chip chip-${trophy.kind}`, text: kindLabel(trophy.kind) }),
     trophy.missable ? el('span', { class: 'chip chip-missable', text: 'Missable' }) : null,
-    el('span', { class: 'chip chip-online', text: `Stage ${trophy.stage}` }),
+    el('span', { class: 'chip chip-stage', text: `Stage ${trophy.stage} — ${stage.window}` }),
   );
 
   const earnedBox = el('input', {
@@ -140,7 +140,7 @@ function sourcesSection(trophy) {
     list,
     el('p', {
       class: 'source-note',
-      text: 'Links open only when clicked — the guide itself loads nothing from the network.',
+      text: 'Links open only when clicked — the app itself loads nothing.',
     }),
   );
 }

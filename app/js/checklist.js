@@ -3,7 +3,6 @@
 // the list and the progress counts honest without a framework.
 
 import { el, clear } from './ui.js';
-import { kindLabel } from './data.js';
 import { matches } from './filters.js';
 
 export function renderChecklist({ listNode, guide, store, filter, openId, onOpen, onToggle }) {
@@ -44,9 +43,10 @@ function buildRow(trophy, { store, openId, onOpen, onToggle }) {
     onchange: (event) => onToggle(trophy, event.target.checked),
   });
 
+  // One flag line per row and nothing else: the grade dot, the name, the official
+  // description, and — only where it matters — the missable flag and the roadmap stage.
   const meta = el('span', { class: 'row-meta' });
   if (sealed) meta.append(el('span', { class: 'chip chip-sealed', text: 'Sealed' }));
-  else meta.append(el('span', { class: `chip chip-${trophy.kind}`, text: kindLabel(trophy.kind) }));
   if (trophy.missable) meta.append(el('span', { class: 'chip chip-missable', text: 'Missable' }));
   meta.append(el('span', { class: 'row-stage', text: `S${trophy.stage}` }));
 
