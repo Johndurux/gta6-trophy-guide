@@ -52,18 +52,9 @@
 
   <section class="filters" id="filters" aria-label="Filter by kind">
     <div class="chips" id="kind-chips" role="group" aria-label="Filter by kind"></div>
-    <label class="select">
-      <select id="grade-filter" title="Filter by grade">
-        <option value="all">All grades</option>
-        <option value="platinum">Platinum</option>
-        <option value="gold">Gold</option>
-        <option value="silver">Silver</option>
-        <option value="bronze">Bronze</option>
-      </select>
-    </label>
     <label class="search">
       <span class="search-icon" aria-hidden="true">⌕</span>
-      <input id="search" type="search" placeholder="Search trophies, guides, tips…" autocomplete="off" spellcheck="false">
+      <input id="search" type="search" placeholder="Search…" autocomplete="off" spellcheck="false">
     </label>
   </section>
 </div>
@@ -71,14 +62,18 @@
 <main class="workspace" id="workspace">
   <section class="list-pane" id="list-pane" aria-label="Trophy checklist">
     <div class="list-head">
-      <div class="list-head-top">
-        <span id="list-title">All trophies</span>
-        <span id="list-count">55 shown</span>
-      </div>
-      <div class="list-head-bottom">
-        <span class="pill pill-guard" id="guard-pill" title="The spoiler guard keeps the 28 hidden trophies sealed until you mark them earned">Spoiler guard · sealed</span>
-        <button id="hide-earned" class="list-toggle" type="button" aria-pressed="false">Hide earned</button>
-      </div>
+      <span id="list-title">All trophies</span>
+      <label class="select">
+        <select id="grade-filter" title="Filter by grade">
+          <option value="all">All grades</option>
+          <option value="platinum">Platinum</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+      </label>
+      <button id="hide-earned" class="list-toggle" type="button" aria-pressed="false">Hide earned</button>
+      <span id="list-count">55 shown</span>
     </div>
     <div class="trophy-list" id="trophy-list" role="list"></div>
   </section>

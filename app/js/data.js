@@ -76,29 +76,6 @@ export function stageOf(id) {
   return STAGES.find((stage) => stage.id === id) ?? STAGES[STAGES.length - 1];
 }
 
-/** The short name of a stage, without the clause after the dash: "Chapter 1", "Chapters 2–3". */
-export function stageLabel(id) {
-  return stageOf(id).title.split(' — ')[0];
-}
-
-/** What the spoiler guard calls a trophy it is hiding: "Hidden story trophy", "Hidden collectible trophy". */
-export function hiddenLabel(trophy) {
-  return `Hidden ${kindLabel(trophy.kind).toLowerCase()} trophy`;
-}
-
-/**
- * How long the trophy adds to a 100% run, in a form a reader can plan with: "≈ 2–3 h", or
- * "≈ 30 min" when it is under an hour at both ends. Empty when the data carries no hours.
- */
-export function hoursLabel(trophy) {
-  const hours = trophy.hours;
-  if (!hours || !hours.low) return '';
-  const low = hours.low * 60;
-  const high = hours.high * 60;
-  const show = (minutes) => (minutes < 60 ? `${Math.round(minutes)} min` : `${(minutes / 60).toFixed(minutes % 60 === 0 ? 0 : 1).replace('.0', '')} h`);
-  return low === high ? `≈ ${show(low)}` : `≈ ${show(low)}–${show(high)}`;
-}
-
 export async function loadGuide() {
   const response = await fetch(TROPHIES_URL);
   if (!response.ok) throw new Error(`trophies.json answered ${response.status}`);
@@ -116,17 +93,10 @@ export async function loadGuide() {
       kind: String(item.kind ?? 'activity'),
       missable: Boolean(item.missable),
       stage: Number(item.stage ?? 5),
+      lostAt: String(item.lostAt ?? ''),
       guide: String(item.guide ?? ''),
-      tips: String(item.tips ?? ''),
-      summary: String(item.summary ?? ''),
       steps: Array.isArray(item.steps) ? item.steps.map((step) => String(step)) : [],
-      hours: item.hours && typeof item.hours === 'object'
-        ? {
-            low: Number(item.hours.low ?? 0),
-            high: Number(item.hours.high ?? 0),
-            beat: String(item.hours.beat ?? ''),
-          }
-        : null,
+      tips: String(item.tips ?? ''),
       sources: Array.isArray(item.sources) ? item.sources.filter((source) => source && source.url) : [],
     }))
     .sort((a, b) => a.id - b.id);

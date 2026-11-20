@@ -1,13 +1,9 @@
-// The checklist: one row per trophy with the earned box, grade dot, kind-free headline and
-// the roadmap stage. Rows are rebuilt from the data on every change, which keeps the list
-// and the progress counts honest without a framework.
-//
-// A row the spoiler guard holds names nothing: it reads "Hidden story trophy" and the stage
-// it sits in — a whole phrase, never a clipped sentence.
+// The checklist: one row per trophy with the earned box, grade dot, kind chip, missable
+// flag and roadmap stage. Rows are rebuilt from the data on every change, which keeps
+// the list and the progress counts honest without a framework.
 
 import { el, clear } from './ui.js';
 import { matches } from './filters.js';
-import { hiddenLabel, stageOf } from './data.js';
 
 export function renderChecklist({ listNode, guide, store, filter, openId, onOpen, onToggle }) {
   clear(listNode);
@@ -47,11 +43,10 @@ function buildRow(trophy, { store, openId, onOpen, onToggle }) {
     onchange: (event) => onToggle(trophy, event.target.checked),
   });
 
-  // The second line is one short phrase either way, so it can never be clipped: the stage
-  // for a sealed trophy, the official description for an open one.
-  const subline = sealed ? `Stage ${trophy.stage} · ${stageOf(trophy.stage).window}` : trophy.description;
-
+  // One flag line per row and nothing else: the grade dot, the name, the official
+  // description, and — only where it matters — the missable flag and the roadmap stage.
   const meta = el('span', { class: 'row-meta' });
+  if (sealed) meta.append(el('span', { class: 'chip chip-sealed', text: 'Sealed' }));
   if (trophy.missable) meta.append(el('span', { class: 'chip chip-missable', text: 'Missable' }));
   meta.append(el('span', { class: 'row-stage', text: `S${trophy.stage}` }));
 
@@ -66,8 +61,11 @@ function buildRow(trophy, { store, openId, onOpen, onToggle }) {
       el(
         'span',
         { class: 'row-text' },
-        el('span', { class: 'row-name', text: sealed ? hiddenLabel(trophy) : trophy.name }),
-        el('span', { class: 'row-desc', text: subline, title: sealed ? 'Sealed until you mark it earned' : subline }),
+        el('span', { class: 'row-name', text: sealed ? 'Hidden trophy' : trophy.name }),
+        el('span', {
+          class: 'row-desc',
+          text: sealed ? 'Sealed until you mark it earned — spoiler guard is on' : trophy.description,
+        }),
       ),
       meta,
     ),
